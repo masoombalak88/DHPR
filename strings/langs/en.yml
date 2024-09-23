@@ -179,9 +179,9 @@ stream_2 : "➲ <b>Sᴛᴀʀᴛᴇᴅ Sᴛʀᴇᴀᴍɪɴɢ |</b>\n\n<b>‣ Sᴛ
 
 
 CLOSE_BUTTON  : "✪ ᴄʟᴏsᴇ ✪"
-BACK_BUTTON : "ʙᴀᴄᴋ"
-NEXT_PAGE: ">"
-BACK_PAGE: "<"
+BACK_BUTTON : "✪ ʙᴀᴄᴋ ✪"
+NEXT_PAGE: "☞︎︎︎"
+BACK_PAGE: "☜︎︎︎"
 
 
 S_B_1 : "⍟ ᴀᴅᴅ ᴍᴇ ʙᴀʙʏ ⍟"
