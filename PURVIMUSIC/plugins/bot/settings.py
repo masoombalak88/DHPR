@@ -6,6 +6,8 @@ from pyrogram.types import (
     InlineKeyboardButton,
     InlineKeyboardMarkup,
     Message,
+    InputMediaPhoto,
+    InputMediaVideo,
 )
 
 from PURVIMUSIC import app
@@ -34,7 +36,7 @@ from PURVIMUSIC.utils.inline.settings import (
     vote_mode_markup,
 )
 from PURVIMUSIC.utils.inline.start import private_panel
-from config import BANNED_USERS, OWNER_ID
+from config import BANNED_USERS, OWNER_ID, START_IMG_URL
 
 
 @app.on_message(
@@ -48,24 +50,16 @@ async def settings_mar(client, message: Message, _):
         reply_markup=InlineKeyboardMarkup(buttons),
     )
 
-
-@app.on_callback_query(filters.regex("settings_helper") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("gib_source") & ~BANNED_USERS)
 @languageCB
-async def settings_cb(client, CallbackQuery, _):
-    try:
-        await CallbackQuery.answer(_["set_cb_5"])
-    except:
-        pass
-    buttons = setting_markup(_)
-    return await CallbackQuery.edit_message_text(
-        _["setting_1"].format(
-            app.mention,
-            CallbackQuery.message.chat.id,
-            CallbackQuery.message.chat.title,
+async def gib_repo(client, CallbackQuery, _):
+    await CallbackQuery.edit_message_media(
+        InputMediaVideo("https://telegra.ph/file/136b8c8380fb100ab3efa.mp4"),
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton(text="ʙᴀᴄᴋ", callback_data=f"settingsback_helper")]]
         ),
-        reply_markup=InlineKeyboardMarkup(buttons),
     )
-    
+
 @app.on_callback_query(filters.regex("settingsback_helper") & ~BANNED_USERS)
 @languageCB
 async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
@@ -77,8 +71,12 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
         await app.resolve_peer(OWNER_ID)
         OWNER = OWNER_ID
         buttons = private_panel(_)
-        return await CallbackQuery.edit_message_text(
-            _["start_2"].format(CallbackQuery.from_user.mention, app.mention),
+        return await CallbackQuery.edit_message_media(
+            InputMediaPhoto(
+                media=START_IMG_URL,
+                caption=_["start_2"].format(
+                    CallbackQuery.from_user.first_name, app.mention),
+            ),
             reply_markup=InlineKeyboardMarkup(buttons),
         )
     else:
